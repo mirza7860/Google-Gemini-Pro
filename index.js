@@ -9,7 +9,7 @@ dotenv.config();
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-// Asynchronous function to generate content
+// Asynchronous function to generate content ,create a new .txt file and write complete text here . 
 async function FirstGPT(model, prompt) {
   try {
     const result = await model.generateContent(prompt);

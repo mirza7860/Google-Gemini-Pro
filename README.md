@@ -41,7 +41,7 @@ Follow these steps to set up and use Google Generative AI in your project:
 ## Example Usage
 
 ```javascript
-// Asynchronous function to generate content
+// Asynchronous function to generate content ,create a new .txt file and write complete text here . 
 async function FirstGPT(model, prompt) {
   try {
     const result = await model.generateContent(prompt);
