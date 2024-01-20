@@ -12,42 +12,51 @@ Follow these steps to set up and use Google Generative AI in your project:
 
 2. **Install Dependencies**: Install the required packages using npm. Make sure you have [dotenv](https://www.npmjs.com/package/dotenv) installed.
 
-    ```bash
-    npm install dotenv @google/generative-ai
-    ```
+   ```bash
+   npm install dotenv @google/generative-ai
+   ```
 
 3. **Initialize dotenv**: Create a `.env` file in the root of your project and add your API key:
 
-    ```dotenv
-    API_KEY=your_google_api_key
-    ```
+   ```dotenv
+   API_KEY=your_google_api_key
+   ```
 
 4. **Initialize the Generative Model**: In your project, initialize the generative model using the provided package.
 
    Example code:
 
-    ```javascript
-      import dotenv from "dotenv";
-      import { GoogleGenerativeAI } from "@google/generative-ai";
-      // Initialize dotenv
-      dotenv.config();
-      const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    ```
+   ```javascript
+   import dotenv from "dotenv";
+   import { GoogleGenerativeAI } from "@google/generative-ai";
+   // Initialize dotenv
+   dotenv.config();
+   const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+   ```
 
 5. **Start Generating Creativity**:
    - Now that your setup is complete, you can use the `generativeAI` instance to explore the capabilities of Google's Generative AI in your project.
 
 ## Example Usage
-```javascript
-      async function FirstGPT(model, prompt) {
-        const result = await model.generateContent(prompt);
-        const text = await result.response.text();
-        console.log(text);
-      }
-      // Use the FirstGPT function with the initialized model and a prompt
-      FirstGPT(model, "write a random blog for me.");
-```
 
+```javascript
+// Asynchronous function to generate content
+async function FirstGPT(model, prompt) {
+  try {
+    const result = await model.generateContent(prompt);
+    const text = await result.response.text();
+    fs.appendFile(`EXAMPLE.txt`, text, "utf-8", (err) => {
+      if (err) throw err;
+      console.log("Task COMPLETED");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Run The Code Here
+FirstGPT(model, "Write a random blog");
+```
 
 This ensures that you're calling the `FirstGPT` function with the correct arguments.

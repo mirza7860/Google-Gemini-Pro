@@ -1,13 +1,27 @@
 import dotenv from "dotenv";
+import fs from "fs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+
+// Initialize dotenv
 dotenv.config();
-// models/gemini-pro-vision model/gemini-pro
+
+// Initialize Google Generative AI with API key
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
+// Asynchronous function to generate content
 async function FirstGPT(model, prompt) {
-  const result = await model.generateContent(prompt);
-  const text = await result.response.text();
-  console.log(text);
+  try {
+    const result = await model.generateContent(prompt);
+    const text = await result.response.text();
+    fs.appendFile(`EXAMPLE.txt`, text, "utf-8", (err) => {
+      if (err) throw err;
+      console.log("Task COMPLETED");
+    });
+  } catch (error) {
+    console.log(error)
+  }
 }
-FirstGPT(model, "write a random blog for me.");
+
+// Run The Code Here
+FirstGPT(model, "Write a random blog");
